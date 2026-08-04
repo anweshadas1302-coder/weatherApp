@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Weather App</title>
+
     <link rel="stylesheet" href="/css/style.css">
+
 </head>
-<body>
+
+<body class="<%= weather ? weather.main.toLowerCase() : 'default' %>">
+
+    <!-- Weather Animation Container -->
+    <div id="animation-container"></div>
 
     <div class="container">
 
         <h1>🌤️ Weather App</h1>
 
-        <p>Search the current weather of any city.</p>
+        <p>Search weather of any city</p>
 
         <form action="/weather" method="GET">
 
@@ -27,7 +39,98 @@
 
         </form>
 
+        <% if(weather){ %>
+
+            <div class="weather-card">
+
+                <h2>
+                    <%= weather.city %>, <%= weather.country %>
+                </h2>
+
+                <p>Icon Code: <%= weather.icon %></p>
+
+  <img src="https://openweathermap.org/img/wn/<%= weather.icon.replace('n', 'd') %>@4x.png" 
+  alt="Weather Icon">
+
+
+                <h1 class="temp">
+                    <%= weather.temperature %>°C
+                </h1>
+
+                <h3>
+                    <%= weather.description %>
+                </h3>
+
+                <div class="details">
+
+                    <div class="box">
+                        <h4>👀 Visibility</h4>
+                        <p><%= weather.visibility/1000 %> km</p>
+                    </div>
+
+                    <div class="box">
+                        <h4>☁️ Clouds</h4>
+                        <p><%= weather.clouds %>%</p>
+                    </div>
+
+                    <div class="box">
+                        <h4>🌅 Sunrise</h4>
+                        <p><%= weather.sunrise %></p>
+                    </div>
+
+                    <div class="box">
+                        <h4>🌇 Sunset</h4>
+                        <p><%= weather.sunset %></p>
+                    </div>
+
+                    <div class="box">
+                        <h4>🌡️ Feels Like</h4>
+                        <p><%= weather.feelsLike %>°C</p>
+                    </div>
+
+                    <div class="box">
+                        <h4>💧 Humidity</h4>
+                        <p><%= weather.humidity %>%</p>
+                    </div>
+
+                    <div class="box">
+                        <h4>💨 Wind</h4>
+                        <p><%= weather.windSpeed %> m/s</p>
+                    </div>
+
+                    <div class="box">
+                        <h4>🌍 Pressure</h4>
+                        <p><%= weather.pressure %> hPa</p>
+                    </div>
+
+                    <div class="box">
+                        <h4>❄️ Min Temp</h4>
+                        <p><%= weather.tempMin %>°C</p>
+                    </div>
+
+                    <div class="box">
+                        <h4>☀️ Max Temp</h4>
+                        <p><%= weather.tempMax %>°C</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        <% } %>
+
+        <% if(error){ %>
+
+            <h3 style="color:red; margin-top:20px;">
+                <%= error %>
+            </h3>
+
+        <% } %>
+
     </div>
 
+    <!-- Weather Animation Script -->
+    <!-- <script src="/js/weatherAnimation.js"></script> -->
 </body>
+
 </html>
